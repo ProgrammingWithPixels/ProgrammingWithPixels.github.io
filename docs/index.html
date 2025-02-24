@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description" 
-        content="Programming with Pixels: Towards Generalist Software Engineering Agents">
+        content="Programming with Pixels: Computer-Use Meets Software-Engineering">
   <meta name="keywords" content="AI agents, software engineering, IDE interaction, computer-use agents, multimodal programming">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Programming with Pixels: Towards Generalist Software Engineering Agents</title>
+  <title>Programming with Pixels: Computer-Use Meets Software-Engineering</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Roboto:400,500&display=swap" rel="stylesheet">
@@ -135,6 +135,187 @@
     .tab-content .content figure.image {
       margin: 0 0 1rem 0;
     }
+    
+    /* Dataset content tabs */
+    .dataset-content {
+      display: none;
+    }
+    .dataset-content.is-active {
+      display: block;
+    }
+
+    /* Chart container styling */
+    .chart-container {
+      position: relative;
+      margin: 2rem auto;
+      max-width: 700px;
+    }
+    
+    .chart-wrapper {
+      position: relative;
+      margin: 0 auto;
+    }
+    
+    /* Category legend styling */
+    .category-legend {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      gap: 1rem;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 0 0.5rem;
+    }
+    
+    .color-box {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      border-radius: 3px;
+    }
+    
+    /* Chart categories overlay */
+    .chart-categories {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .category-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(var(--rotation)) translateX(240px) rotate(calc(-1 * var(--rotation)));
+      background-color: var(--color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+    }
+    
+    /* Dataset details styling */
+    #datasetDescription {
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+    }
+
+    /* Code Example Box Styling */
+    .code-example-box {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .code-window {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      background-color: #1e1e2e;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .code-header {
+      background-color: #181825;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #11111b;
+    }
+    
+    .code-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      background-color: #f38ba8;
+      display: inline-block;
+    }
+    
+    .code-dot:nth-child(2) {
+      background-color: #fab387;
+    }
+    
+    .code-dot:nth-child(3) {
+      background-color: #a6e3a1;
+    }
+    
+    .code-title {
+      color: #cdd6f4;
+      font-size: 14px;
+      margin-left: 10px;
+      opacity: 0.8;
+    }
+    
+    .code-content {
+      flex-grow: 1;
+      margin: 0;
+      padding: 20px;
+      background-color: #1e1e2e;
+      color: #cdd6f4;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      overflow-x: auto;
+      border-radius: 0;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    
+    /* Manual syntax highlighting for Python */
+    .code-content .keyword {
+      color: #cba6f7; /* purple for keywords */
+      font-weight: bold;
+    }
+    
+    .code-content .function {
+      color: #94e2d5; /* teal for functions */
+    }
+    
+    .code-content .class {
+      color: #89b4fa; /* blue for classes */
+    }
+    
+    .code-content .module {
+      color: #89dceb; /* cyan for modules */
+    }
+    
+    .code-content .string {
+      color: #f9e2af; /* yellow for strings */
+    }
+    
+    .code-content .language-python .comment {
+      color: #6272a4;
+    }
+    
+    /* Explanation styling */
+    .explanation {
+      padding: 15px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .explanation ul {
+      margin-bottom: 1rem;
+    }
+    
+    .explanation ul li {
+      margin-bottom: 0.5rem;
+    }
   </style>
 
 
@@ -144,7 +325,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bulma-accordion@2.0.3/dist/js/bulma-accordion.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <link rel="stylesheet" href="./static/css/prism.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script></head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <body>
 
 <!-- Hero Section -->
@@ -174,54 +357,53 @@
             <span class="icon"><i class="fas fa-laptop-code"></i></span>
             <span>Demo</span>
           </a>
-          <a href="#contact" class="button is-dark is-rounded">
+          <a href="mailto:pranjal2041@gmail.com" class="button is-dark is-rounded">
             <span class="icon"><i class="fas fa-envelope"></i></span>
             <span>Contact</span>
           </a>
-        </p>
+          </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TL;DR Section -->
+<!-- Goal of PwP Section -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="subtitle has-text-centered"><span style="font-weight:bold;">Goal of PwP</span></h2>
+    <h2 class="title is-3 has-text-centered"><span style="font-weight:bold;">Goal of PwP</span></h2>
     <div class="content">
-      <ul>
-        The ultimate goal of PwP is to enable generalist software engineering agents, that can solve a range of software engineering tasks, without hand-engineered priors in the form of action, observation and tool space. Agents should be capable of operating in environments similar to that of a human software engineer.
-      </ul>
       <p>
-        To achieve this goal, we start by proposing: <br> 1. an environment <strong>PwP</strong> 🖥️, <br> 2. a benchmark <strong>PwP-Bench</strong> 📊, and <br> 3. <strong>preliminary results</strong> 🚀 showcasing potential of generalist SWE agents!
+        Our motivating hypothesis is that achieving general-purpose Software Engineering (SWE) agents requires a shift to <strong>computer-use agents</strong> that interact with computers as humans do: by observing the screen, typing, and clicking.
       </p>
+      <ul>
+        <li>We recast software engineering as interacting directly with an IDE through visual perception and basic actions</li>
+        <li>This allows agents to perform any task possible in an IDE and leverage all tools without requiring specialized APIs</li>
+        <li>To achieve this goal, we introduce:
+          <br>1. <strong>Programming with Pixels (PwP)</strong>: A software engineering agent environment for computer-use agents 🖥️
+          <br>2. <strong>PwP-Bench</strong>: A benchmark spanning 15 diverse SWE tasks across 8 programming languages 📊
+          <br>3. Experimental results showing that general-purpose computer-use agents can approach or even surpass specialized tool-based agents 📈
+        </li>
+      </ul>
     </div>
-    
   </div>
 </section>
-
-
-<!-- TL;DR Section -->
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="subtitle has-text-centered"><span style="font-weight:bold;">TLDR</span></h2>
-    <div class="content">
-      <ul>
-        <li><strong>Programming with Pixels (PwP)</strong> introduces a <strong>computer-use agent paradigm</strong> for software engineering where agents interact directly with IDEs through visual perception and basic actions.</li>
-        <li>Our <strong>PwP-Bench</strong> unifies 15 SWE tasks across 8 languages, multiple modalities and domains.</li>
-        <li>Our evaluations on PwP-Bench shows, a single Computer-Use agent design can match or even surpass state-of-the-art performance across a board of tasks, paving the way for generalist SWE agents.</li>
-      </ul>
-    </div>
-  </div>
-</section> -->
 
 <!-- Introduction Section -->
 <section class="section">
   <div class="container">
     <div class="content">
-      <h2 class="title is-3">The Limits of Tool-Based Agents</h2>
+      <h2 class="title is-3">The Limits of Tool-Based Paradigm</h2>
       <p class="is-size-5">
-        Current AI agents for software engineering rely on hand-engineered tool APIs, limiting their generalization across tasks and languages. These approaches require extensive human engineering for each new capability and struggle with multimodal programming tasks.
+        Recent SWE agents have largely followed a tool-based paradigm, where agents interact with hand-engineered tool APIs to perform specific tasks. While effective for specialized tasks, these methods fundamentally lack generalization, as they:
+      </p>
+      <ul class="is-size-5">
+        <li>Require predefined tools for each task</li>
+        <li>Do not scale across programming languages and domains</li>
+        <li>Need significant human effort to implement and may contain bugs</li>
+        <li>Are limited to the predefined actions provided by the tool API</li>
+      </ul>
+      <p class="is-size-5">
+        For example, an agent designed to manage GitHub pull requests lacks debugging abilities unless specifically programmed into the agent's API.
       </p>
     </div>
   </div>
@@ -236,12 +418,11 @@
     </figure>
     <div class="content">
       <p class="is-size-5">
-        PwP enables agents to interact with IDEs through visual perception and basic actions:
+        PwP is a VSCode-based IDE environment where agents perceive the screen and use primitive actions such as typing, pointing, and clicking. This provides two key advantages:
       </p>
       <ul class="is-size-5">
-        <li><strong>Visual Interaction:</strong> Observe IDE state through screenshots</li>
-        <li><strong>Primitive Actions:</strong> Typing, clicking, navigation</li>
-        <li><strong>Tool Agnostic:</strong> Leverage existing IDE capabilities naturally</li>
+        <li><strong>Expressiveness:</strong> Allows agents to complete any software engineering task achievable in an IDE, without language or domain-specific modifications</li>
+        <li><strong>Natural Tool Access:</strong> Agents can interact with any tools available in the IDE—including debuggers, linters, and code suggestions—through basic actions. No need to reinvent the wheel for AI agents!</li>
       </ul>
     </div>
   </div>
@@ -252,14 +433,14 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
-        <h2 class="title is-3">Key Advantages</h2>
+        <h2 class="title is-3">Key Findings</h2>
         <div class="content has-text-justified is-size-5">
           <ul>
-            <li><strong></strong>IDE-Centric Design:</strong> Full access to VSCode tools through visual interaction</li>
-            <li><strong>PwP-Bench:</strong> Unified benchmark spanning 15 tasks across 8 languages</li>
-            <li><strong>Generalist Agents:</strong> Single agent architecture across all tasks</li>
-            <li><strong>Critical Insights:</strong> Current models struggle with visual grounding and tool discovery</li>
-            <li>🚀 <strong>Performance Potential:</strong> 47.2% success rate with best model (Claude 3.5)</li>
+            <li><strong>Promising Performance:</strong> General-purpose computer-use agents can approach or exceed state-of-the-art tool-based agents without task-specific modifications</li>
+            <li><strong>Visual Grounding Issues:</strong> Even state-of-the-art computer-use agents struggle with visual grounding in complex IDE interfaces</li>
+            <li><strong>Limited Tool Use:</strong> Current agents lack the ability to use many IDE tools that could make their tasks trivial</li>
+            <li><strong>Performance Gap:</strong> Only one model, Claude (Anthropic), performs well, highlighting the need for further research</li>
+            <li><strong>Untapped Potential:</strong> When agents can directly access IDE tools without visual interaction, they show significant performance improvements</li>
           </ul>
         </div>
       </div>
@@ -282,30 +463,252 @@
     <div id="contrib-tab1" class="tab-content is-active">
       <div class="content">
         <h3 class="title is-4">PwP Environment</h3>
-        <p class="is-size-5">
-          Our environment enables agents to interact with IDEs through visual perception and basic actions,
-          providing a more natural and generalizable approach to software engineering tasks.
+        <div class="columns is-centered">
+          <div class="column is-10">
+            <figure class="image">
+              <img src="static/images/pwp_env.png" alt="PwP Environment Architecture" class="diagram">
+              <figcaption class="has-text-centered mt-2">The PwP environment provides a VSCode-based IDE within a sandboxed container, enabling agents to interact through screen observations and primitive actions.</figcaption>
+            </figure>
+          </div>
+        </div>
+        <p class="is-size-5 mt-4">
+          We introduce the first software engineering-focused environment for evaluating computer-use agents, using a modified VSCode IDE with:
         </p>
+        <ul class="is-size-5">
+          <li>Full multimodality support (text, image, video, audio)</li>
+          <li>General observation space (screenshots) and action space (typing, clicking)</li>
+          <li>Complete state checkpointing for reinforcement learning</li>
+          <li>Access to all IDE tools through visual interaction</li>
+          <li>Execution-based reward calculation</li>
+        </ul>
+        
+        <!-- Code Example Section -->
+        <div class="box code-example-box mt-5">
+          <h4 class="title is-5 mb-3 has-text-centered">How to interact with PwP</h4>
+          <div class="columns">
+            <div class="column">
+              <div class="code-window">
+                <div class="code-header">
+                  <span class="code-dot"></span>
+                  <span class="code-dot"></span>
+                  <span class="code-dot"></span>
+                  <div class="code-title">How to interact with PwP?</div>
+                </div>
+                <pre class="code-content"><code><span class="keyword">from</span> <span class="module">pwp</span> <span class="keyword">import</span> <span class="class">PwPBench</span>
+
+bench <span class="operator">=</span> <span class="class">PwPBench</span>(<span class="string">'design2code'</span>)
+
+dataset <span class="operator">=</span> bench<span class="operator">.</span><span class="function">get_dataset</span>()
+row <span class="operator">=</span> dataset[<span class="number">0</span>]
+
+env <span class="operator">=</span> bench<span class="operator">.</span><span class="function">get_env</span>(row)
+
+<span class="keyword">for</span> step <span class="keyword">in</span> <span class="function">range</span>(<span class="number">20</span>):
+    obs <span class="operator">=</span> env<span class="operator">.</span><span class="function">get_observation</span>()
+    action <span class="operator">=</span> agent<span class="operator">.</span><span class="function">get_action</span>(obs)
+    
+    env<span class="operator">.</span><span class="function">step</span>(action)
+
+score <span class="operator">=</span> bench<span class="operator">.</span><span class="function">get_reward</span>(env, row)</code></pre>
+              </div>
+            </div>
+            <div class="column">
+              <div class="explanation">
+                <h5 class="title is-6">Simple API for Computer-Use Agents</h5>
+                <p>PwP provides a straightforward API for evaluating computer-use agents:</p>
+                <ul>
+                  <li><strong>Initialize:</strong> Create a PwPBench instance for a specific task</li>
+                  <li><strong>Load data:</strong> Get dataset and select specific examples</li>
+                  <li><strong>Set up environment:</strong> Configure the task-specific environment</li>
+                  <li><strong>Agent loop:</strong> Observe the screen, decide actions, and execute them</li>
+                  <li><strong>Evaluation:</strong> Calculate execution-based rewards for the agent's performance</li>
+                </ul>
+                <p class="notification is-light is-info mt-3">
+                  <span class="icon"><i class="fas fa-info-circle"></i></span>
+                  This simplified interface works across all 15 tasks and 8 programming languages without any task-specific modifications!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
     <div id="contrib-tab2" class="tab-content">
       <div class="content">
         <h3 class="title is-4">PwP-Bench</h3>
-        <p class="is-size-5">
-          A comprehensive benchmark featuring 15 diverse software engineering tasks across 8 programming languages,
-          designed to evaluate agent capabilities in real-world scenarios.
-        </p>
+        
+        <!-- Key Features (moved up) -->
+        <div class="box key-features mb-5">
+          <h4 class="title is-5 has-text-centered">Key Features</h4>
+          <div class="columns is-multiline">
+            <div class="column is-6">
+              <div class="feature-item">
+                <span class="icon has-text-primary"><i class="fas fa-globe"></i></span>
+                <strong>Comprehensive Coverage:</strong> Unification of 15 SWE tasks spanning 8 programming languages, multiple modalities and domains
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="feature-item">
+                <span class="icon has-text-info"><i class="fas fa-images"></i></span>
+                <strong>Multimodal Evaluation:</strong> Tasks across text, images, and combined modalities
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="feature-item">
+                <span class="icon has-text-success"><i class="fas fa-vial"></i></span>
+                <strong>Realistic & Execution-Based:</strong> Based on actual development scenarios with evaluation that tests functionality rather than text similarity
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="feature-item">
+                <span class="icon has-text-warning"><i class="fas fa-puzzle-piece"></i></span>
+                <strong>Easily Extensible:</strong> Adding new tasks requires just 2 scripts, making future adaptations simple
+              </div>
+            </div>
+            <div class="column is-12">
+              <div class="notification is-info is-light mt-3">
+                <span class="icon"><i class="fas fa-handshake"></i></span>
+                <strong>Want your dataset included?</strong> We welcome contributions! <a href="mailto:pranjal2041@gmail.com">Contact us</a> to discuss integrating your tasks into PwP-Bench.
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dataset Explorer Section -->
+        <div class="box">
+          <h4 class="title is-5 has-text-centered">Explore Datasets</h4>
+          <p class="has-text-centered mb-4">Hover over any segment to see details about individual datasets</p>
+          
+          <!-- Chart.js Wheel Chart with Category Labels -->
+          <div class="chart-container">
+            <div class="chart-wrapper">
+              <canvas id="benchmarkChart" width="800" height="600"></canvas>
+              <!-- Category Labels overlay -->
+              <div id="chartCategories" class="chart-categories">
+                <div class="category-label" style="--rotation: 315deg; --color: rgba(54, 162, 235, 0.8);">
+                  Code Gen & Editing
+                </div>
+                <div class="category-label" style="--rotation: 45deg; --color: rgba(153, 102, 51, 0.8);">
+                  Multimodal Code Gen
+                </div>
+                <div class="category-label" style="--rotation: 135deg; --color: rgba(75, 192, 192, 0.8);">
+                  Domain-Specific Code Gen
+                </div>
+                <div class="category-label" style="--rotation: 225deg; --color: rgba(153, 102, 255, 0.8);">
+                  General SWE Tasks
+                </div>
+              </div>
+            </div>
+            
+            <!-- Category Legend -->
+            <div class="category-legend">
+              <div class="legend-item">
+                <span class="color-box" style="background-color: rgba(54, 162, 235, 0.8);"></span>
+                <span>Code Gen & Editing</span>
+              </div>
+              <div class="legend-item">
+                <span class="color-box" style="background-color: rgba(153, 102, 51, 0.8);"></span>
+                <span>Multimodal Code Gen</span>
+              </div>
+              <div class="legend-item">
+                <span class="color-box" style="background-color: rgba(75, 192, 192, 0.8);"></span>
+                <span>Domain Specific</span>
+              </div>
+              <div class="legend-item">
+                <span class="color-box" style="background-color: rgba(153, 102, 255, 0.8);"></span>
+                <span>SWE Tasks</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dataset Details Container -->
+          <div class="dataset-details-container mt-4">
+            <h5 class="title is-6 has-text-centered" id="datasetTitle">Hover over a segment to see details</h5>
+            <div id="datasetDescription" class="dataset-description">
+              Select a dataset from the chart above to view more information.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Summary stats -->
+        <!-- <div class="box mt-5">
+          <h4 class="title is-5 has-text-centered">Benchmark Scale</h4>
+          <div class="columns has-text-centered">
+            <div class="column">
+              <div class="stat-box">
+                <span class="stat-number">15</span>
+                <span class="stat-label">Diverse Tasks</span>
+              </div>
+            </div>
+            <div class="column">
+              <div class="stat-box">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Programming Languages</span>
+              </div>
+            </div>
+            <div class="column">
+              <div class="stat-box">
+                <span class="stat-number">5,400</span>
+                <span class="stat-label">Total Instances</span>
+              </div>
+            </div>
+            <div class="column">
+              <div class="stat-box">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Task Categories</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
     
     <div id="contrib-tab3" class="tab-content">
       <div class="content">
         <h3 class="title is-4">Agent Analysis</h3>
+        <div class="columns is-centered">
+          <div class="column is-10">
+            <figure class="image">
+              <img src="static/images/results.png" alt="Agent Performance Comparison" class="diagram">
+              <figcaption class="has-text-centered mt-2">Comparison of different agent models on PwP-Bench tasks.</figcaption>
+            </figure>
+          </div>
+        </div>
         <p class="is-size-5">
-          Detailed evaluation of agent performance, revealing key insights about visual grounding,
-          tool discovery, and the potential for generalist software engineering agents.
+          Our extensive evaluation of computer-use agents reveals:
         </p>
+        <ul class="is-size-5">
+          <li>Computer-use agents can match or exceed specialized tool-based agents on many tasks</li>
+          <li>Current models suffer from poor visual grounding in complex IDE interfaces</li>
+          <li>Agents fail to edit files effectively due to visual perception limitations</li>
+          <li>The Claude Computer-Use agent demonstrates basic IDE tool proficiency but struggles with advanced tools</li>
+          <li>Current agents are largely incapable of recovering from errors</li>
+          <li>Training models to better utilize IDE tools would substantially improve performance</li>
+        </ul>
+        
+        <!-- Examples of Agent Limitations -->
+        <h4 class="title is-5 mt-5">Common Agent Limitations</h4>
+        <div class="columns is-multiline">
+          <div class="column is-6">
+            <div class="box">
+              <h5 class="title is-6">Poor Visual Grounding</h5>
+              <figure class="image">
+                <img src="static/images/ui_grounding.png" alt="Visual Grounding Issue">
+                <figcaption>Agents struggle to identify the correct UI elements for interaction</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="column is-6">
+            <div class="box">
+              <h5 class="title is-6">File Editing Failures</h5>
+              <figure class="image">
+                <img src="static/images/file_editing.png" alt="File Editing Issue">
+                <figcaption>Agents incorrectly position text when editing files</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -406,31 +809,31 @@
           <tbody>
             <tr>
               <td>🏆 Computer-Use Agent Claude-3.5 Sonnet - 20241022</td>
-              <td>47.2</td>
+              <td>46.8</td>
               <td>2025-02-24</td>
               <td><a href="#"><i class="fas fa-link"></i></a></td>
             </tr>
             <tr>
               <td>🥈 Computer-Use Agent GPT-4o</td>
-              <td>34.0</td>
+              <td>32.3</td>
               <td>2025-02-24</td>
               <td><a href="#"><i class="fas fa-link"></i></a></td>
             </tr>
             <tr>
               <td>🥉 Computer-Use Agent Gemini-1.5 Pro</td>
-              <td>20.3</td>
+              <td>18.1</td>
               <td>2025-02-24</td>
               <td><a href="#"><i class="fas fa-link"></i></a></td>
             </tr>
             <tr>
               <td>Computer-Use Agent GPT-4o-mini</td>
-              <td>19.9</td>
+              <td>17.8</td>
               <td>2025-02-24</td>
               <td><a href="#"><i class="fas fa-link"></i></a></td>
             </tr>
             <tr>
               <td>Computer-Use Agent Gemini-1.5 Flash</td>
-              <td>11.1</td>
+              <td>8.9</td>
               <td>2025-02-24</td>
               <td><a href="#"><i class="fas fa-link"></i></a></td>
             </tr>
@@ -456,10 +859,10 @@
 <section class="section">
   <div class="container is-max-desktop content">
     <h2 class="title is-3">Citation</h2>
-    <pre><code>@article{pwp2024,
+    <pre><code>@article{pwp2025,
   title={Programming with Pixels: Towards Generalist Software Engineering Agents},
-  author={Anonymous},
-  journal={Under Review},
+  author={Aggarwal, Pranjal and Welleck, Sean},
+  journal={Preprint. Under Review},
   year={2024}
 }</code></pre>
   </div>
@@ -468,7 +871,7 @@
 <footer class="footer">
   <div class="content has-text-centered">
     <p>
-      <strong>Programming with Pixels</strong> - Anonymous Submission
+      <strong>Programming with Pixels</strong> - Computer-Use Meets Software-Engineering
     </p>
     <p>
       Template adapted from previous work and <a href="https://bulma.io/">Bulma</a>
@@ -479,29 +882,153 @@
 <!-- Update the JavaScript at the bottom of the file -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  function switchTabs(clickedTab) {
-    const tabContainer = clickedTab.closest('.tabs');
-    const section = tabContainer.closest('section') || tabContainer.parentElement;
-    const tabId = clickedTab.getAttribute('data-tab');
-    
-    // Update tabs
-    const allTabs = tabContainer.querySelectorAll('li');
-    allTabs.forEach(tab => tab.classList.remove('is-active'));
-    clickedTab.classList.add('is-active');
-    
-    // Update content
-    const allContent = section.querySelectorAll('.tab-content');
-    allContent.forEach(content => content.classList.remove('is-active'));
-    const activeContent = section.querySelector(`#${tabId}`);
-    if (activeContent) {
-      activeContent.classList.add('is-active');
-    }
-  }
-
-  // Add click handlers
+  // Handle tab switching
   document.querySelectorAll('.tabs li').forEach(tab => {
-    tab.addEventListener('click', () => switchTabs(tab));
+    tab.addEventListener('click', () => {
+      const tabId = tab.getAttribute('data-tab');
+      if (!tabId) return;
+      
+      // Update active tab
+      tab.closest('.tabs').querySelectorAll('li').forEach(t => {
+        t.classList.remove('is-active');
+      });
+      tab.classList.add('is-active');
+      
+      // Update active content
+      const section = tab.closest('section');
+      section.querySelectorAll('.tab-content').forEach(c => {
+        c.classList.remove('is-active');
+      });
+      section.querySelector(`#${tabId}`).classList.add('is-active');
+      
+      // If we switched to the benchmark tab, initialize the chart
+      if (tabId === 'contrib-tab2') {
+        initBenchmarkChart();
+      }
+    });
   });
+  
+  // Initialize chart if the benchmark tab is active by default
+  if (document.querySelector('#contrib-tab2').classList.contains('is-active')) {
+    initBenchmarkChart();
+  }
+  
+  function initBenchmarkChart() {
+    // Dataset information
+    const datasetInfo = {
+      // Code Generation & Editing
+      'HumanEval': 'Basic programming tasks for evaluating code generation capabilities across various algorithms and data structures.',
+      'SWE-Bench': 'GitHub pull request-style issue resolution in Python repositories, requiring understanding of complex codebases.',
+      'SWE-Bench-Java': 'Pull request resolution tasks for Java codebases, testing language-specific knowledge and framework understanding.',
+      'SWT-Bench': 'Testing-focused software engineering tasks that require writing unit tests and understanding test frameworks.',
+      'Canit-Edit': 'Targeted code editing to fix specific bugs without rewriting entire functions or classes.',
+      'Res-Q': 'Pull request response generation based on review comments, requiring communication skills.',
+      
+      // Multimodal Code Generation
+      'Design2Code': 'Converting visual UI designs to HTML/CSS implementations, bridging visual and code modalities.',
+      'ChartMimic': 'Generating code to recreate data visualizations from images, requiring data science knowledge.',
+      'SWE-Bench-MM': 'Multimodal version of SWE-Bench with image inputs such as screenshots or diagrams.',
+      'DSBench': 'Data science and visualization code generation tasks based on dataset descriptions.',
+      
+      // Domain-Specific
+      'CTF': 'Cybersecurity challenges requiring exploit development and understanding of security concepts.',
+      'MiniCTX': 'Theorem proving tasks in the Lean programming language, requiring formal methods knowledge.',
+      'BIRD': 'Database query generation from natural language and schema, testing SQL knowledge.',
+      
+      // SWE Tasks
+      'VSCode': 'IDE configuration and extension tasks focused on developer workflows.',
+      'General-SWE': 'Project management, debugging, and profiling tasks common in software development.'
+    };
+    
+    // Chart data structure with category information
+    const data = {
+      datasets: [{
+        data: [
+          // Code Gen & Editing (30%)
+          5, 5, 5, 5, 5, 5,
+          // Multimodal Code Gen (25%) 
+          7, 6, 6, 6,
+          // Domain-Specific (25%)
+          8, 8, 9,
+          // SWE Tasks (20%)
+          10, 10
+        ],
+        backgroundColor: [
+          // Code Gen & Editing (blue hues)
+          'rgba(54, 162, 235, 0.9)', 'rgba(54, 162, 235, 0.8)', 'rgba(54, 162, 235, 0.7)', 
+          'rgba(54, 162, 235, 0.6)', 'rgba(54, 162, 235, 0.5)', 'rgba(54, 162, 235, 0.4)',
+          // Multimodal Code Gen (brown hues)
+          'rgba(153, 102, 51, 0.9)', 'rgba(153, 102, 51, 0.8)', 'rgba(153, 102, 51, 0.7)', 'rgba(153, 102, 51, 0.6)',
+          // Domain-Specific (green hues)
+          'rgba(75, 192, 192, 0.9)', 'rgba(75, 192, 192, 0.8)', 'rgba(75, 192, 192, 0.7)',
+          // SWE Tasks (purple hues)
+          'rgba(153, 102, 255, 0.9)', 'rgba(153, 102, 255, 0.8)'
+        ],
+        borderColor: 'white',
+        borderWidth: 2
+      }],
+      labels: [
+        // Code Gen & Editing
+        'HumanEval', 'SWE-Bench', 'SWE-Bench-Java', 'SWT-Bench', 'Canit-Edit', 'Res-Q',
+        // Multimodal Code Gen
+        'Design2Code', 'ChartMimic', 'SWE-Bench-MM', 'DSBench',
+        // Domain-Specific
+        'CTF', 'MiniCTX', 'BIRD',
+        // SWE Tasks
+        'VSCode', 'General-SWE'
+      ]
+    };
+    
+    // Chart configuration
+    const config = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '40%',
+        radius: '90%',
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              title: function(context) {
+                return context[0].label;
+              },
+              label: function(context) {
+                return datasetInfo[context.label];
+              }
+            }
+          }
+        },
+        onHover: (event, elements) => {
+          if (elements.length > 0) {
+            document.body.style.cursor = 'pointer';
+            
+            // Update dataset info on hover
+            const index = elements[0].index;
+            const datasetLabel = data.labels[index];
+            document.getElementById('datasetTitle').textContent = datasetLabel;
+            document.getElementById('datasetDescription').textContent = datasetInfo[datasetLabel] || 'No description available';
+          } else {
+            document.body.style.cursor = 'default';
+          }
+        }
+      }
+    };
+    
+    // Check if chart exists and destroy before creating a new one
+    const chartElement = document.getElementById('benchmarkChart');
+    if (chartElement.chart) {
+      chartElement.chart.destroy();
+    }
+    
+    // Create chart
+    const ctx = chartElement.getContext('2d');
+    chartElement.chart = new Chart(ctx, config);
+  }
 });
 </script>
 </body>
