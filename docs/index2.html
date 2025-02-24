@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement">
+  <meta name="keywords" content="formal verification, LLMs, code generation, self-improvement, tree search">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlphaVerus: Bootstrapping Formally Verified Code Generation</title>
+
+  <!-- Fonts and Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+</head>
+<body>
+<section class="hero is-fullheight-with-navbar is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">AlphaVerus:<br>Bootstrapping Formally Verified Code Generation</h1>
+          <h2 class="subtitle is-5">(through Self-Improving Translation and Treefinement)</h2>
+
+          <div class="is-size-5 publication-authors"> 
+            <span class="author-block">Pranjal Aggarwal<sup>♠</sup>,</span> 
+            <span class="author-block">Bryan Parno<sup>♠</sup>,</span> 
+            <span class="author-block">Sean Welleck<sup>♠</sup></span>
+            <br>
+            <span class="author-block"><sup>♠</sup>Carnegie Mellon University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/yourpaper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link -->
+              <span class="link-block">
+                <a href="https://github.com/yourgithubrepo/alphaverus"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <!-- Data Link -->
+              <span class="link-block">
+                <a href="https://github.com/yourgithubrepo/alphaverus-data"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-file-code"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+
+              <!-- Email Link -->
+              <span class="link-block">
+                <a href="mailto:alphaverus@googlegroups.com"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-envelope"></i>
+                  </span>
+                  <span>Email</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="subtitle has-text-centered"><span style="font-weight:bold;">TLDR:</span> AlphaVerus leverages self-improvement and formal verification to generate provably correct code. It translates from known verified sources, refines code via tree search, and prevents “reward hacking” with a critique step, achieving robust verified code generation in real-world languages like Rust (Verus).</h2>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="image">
+        <img id="animatedGif" src="./static/images/concept_diagram.png" alt="AlphaVerus Conceptual Diagram">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified is-size-5">
+          <p>
+            Automated code generation with large language models (LLMs) has shown promise, but correctness is not guaranteed. Formal verification can provide mathematical guarantees of correctness, yet verified code generation is hindered by data scarcity and the complexity of proofs. <b>AlphaVerus</b> is a self-improving framework that bootstraps formally verified code generation by iteratively translating verified programs from a resource-rich language (Dafny) into a target language (Verus, a Rust-based verifier). AlphaVerus employs a three-phase process: exploration of candidate translations, <i>Treefinement</i>—a novel tree search for iterative refinement guided by verifier feedback, and a critique step that filters out trivial or misaligned specifications. Through this iterative process, AlphaVerus improves itself without human intervention or model fine-tuning, and enables a LLaMA-70B model to solve verified versions of standard coding benchmarks. Our results open the door to more trustworthy code-generation agents.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="highlights">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Key Highlights</h2>
+        <div class="content has-text-justified is-size-5">
+          <ul>
+            <li>🔑 <strong>Formal Guarantees:</strong> AlphaVerus integrates formal verification into code generation, ensuring mathematically guaranteed correctness.</li>
+            <li>🚀 <strong>Self-Improvement:</strong> Iterative translation and refinement build a data collection loop that continuously improves generation quality without human intervention.</li>
+            <li>🌳 <strong>Treefinement Algorithm:</strong> A novel tree-search-based refinement process fixes verification errors efficiently, surpassing linear refinement methods.</li>
+            <li>🛡 <strong>Preventing Reward Hacking:</strong> A critique step filters out trivial or misaligned specs, maintaining the integrity of the training cycle.</li>
+            <li>📊 <strong>Strong Results:</strong> Achieves state-of-the-art verified code generation performance on HumanEval-Verus and MBPP-Verus benchmarks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results Summary</h2>
+    <p class="has-text-centered"><b>AlphaVerus</b> achieves significant accuracy gains on verified code benchmarks compared to baseline LLMs and GPT-4-based methods.</p>
+    <br>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <figure class="image">
+          <img src="./static/images/results_summary.png" alt="Results Overview">
+        </figure>
+        <hr>
+        <p class="has-text-centered">AlphaVerus scales with increased inference-time compute and consistently outperforms linear refinement approaches.</p>
+        <figure class="image">
+          <img src="./static/images/scaling_performance.png" alt="Scaling Performance">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="library">
+  <div class="container is-max-desktop">
+    <div class="box has-background-light">
+      <h2 class="title is-3">Using AlphaVerus</h2>
+      <p class="is-size-5">AlphaVerus provides a few-shot prompting methodology and utilities to incorporate formal verification into your code generation workflows. It does not require model fine-tuning and integrates seamlessly with open-source LLMs.</p>
+      <br>
+
+      <div class="box has-background-light">
+        <div class="content has-text-justified is-size-6">
+          <p><strong>1. Installation</strong></p>
+          <pre><code>pip install alphaverus</code></pre>
+        </div>
+      </div>
+
+      <div class="box has-background-light">
+        <div class="content has-text-justified is-size-6">
+          <p><strong>2. Run AlphaVerus</strong></p>
+          <pre><code>from alphaverus import AlphaVerus
+
+verifier = AlphaVerus()
+verifier.run_translation(source_data)
+results = verifier.evaluate(test_specs)</code></pre>
+        </div>
+      </div>
+
+      <div class="box has-background-light">
+        <div class="content has-text-justified is-size-6">
+          <p><strong>3. High Customizability</strong></p>
+          <p>Check out our <a href="https://github.com/yourgithubrepo/alphaverus">Github repo</a> for more details and advanced configurations, including tree-search parameters, exploit detection, and custom verifier hooks.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@misc{aggarwal2024alphaverus,
+      title={AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement},
+      author={Pranjal Aggarwal and Bryan Parno and Sean Welleck},
+      year={2024},
+      eprint={xxxxx.xxxxx},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/yourpaper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/yourgithubrepo/alphaverus" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Template adapted from previous LLM research project websites and uses <a href="https://bulma.io/">Bulma</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

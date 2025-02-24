@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement">
+  <meta name="keywords" content="formal verification, LLMs, code generation, self-improvement, verification, Dafny, Verus, tree search">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlphaVerus: Bootstrapping Formally Verified Code Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+</head>
+<body>
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">AlphaVerus</h1>
+          <h2 class="subtitle is-4">Bootstrapping Formally Verified Code Generation through<br>Self-Improving Translation and Treefinement</h2>
+          
+          <div class="is-size-5 publication-authors"> 
+            <span class="author-block">Pranjal Aggarwal<sup>♠</sup>, Bryan Parno<sup>♠</sup>, Sean Welleck<sup>♠</sup></span><br>
+            <span class="author-block"><sup>♠</sup>Carnegie Mellon University</span>
+          </div>
+
+          <div class="column has-text-centered" style="margin-top: 1rem;">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/yourpaper" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/yourrepo/alphaverus" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="mailto:alphaverus@googlegroups.com"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-envelope"></i></span>
+                  <span>Contact</span>
+                </a>
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TLDR Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="subtitle has-text-centered"><strong>TL;DR:</strong> AlphaVerus is a self-improving framework that generates formally verified code without any initial training data. By iteratively translating from a high-resource language (Dafny) into Verus (a Rust-based verification framework), refining solutions through tree search, and filtering trivial hacks, AlphaVerus achieves correct-by-construction code generation that surpasses GPT-4-based methods on challenging verified benchmarks.</h2>
+  </div>
+</section>
+
+<!-- Diagram/Approach Section -->
+<section class="hero is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Approach Overview</h2>
+      <div class="columns is-centered">
+        <div class="column is-two-thirds has-text-justified is-size-5">
+          <p>AlphaVerus tackles the scarcity of training data for formally verified code generation by “bootstrapping” from a verification-aware language (Dafny). It starts with a small seed of hand-written examples and then:</p>
+          <ul style="margin-left:2rem;">
+            <li><strong>1. Exploration:</strong> Translates Dafny programs into Verus candidates using LLMs.</li>
+            <li><strong>2. Treefinement:</strong> Employs a novel tree-search-based refinement guided by Verus verifier feedback to fix errors and achieve verification.</li>
+            <li><strong>3. Critique:</strong> Filters out trivial or misaligned solutions to prevent reward hacking (e.g., using “assume(false)”).</li>
+          </ul>
+          <p>This cycle self-improves: verified programs and refinement trajectories are fed back as few-shot exemplars, enabling more complex verifications and surpassing baselines over time.</p>
+        </div>
+      </div>
+      <figure class="image" style="margin-top:2rem;">
+        <img src="./static/images/alphaverus_diagram.png" alt="AlphaVerus Workflow Diagram">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Key Insights Section -->
+<section class="section" id="highlights">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Insights</h2>
+    <div class="columns">
+      <div class="column is-half is-size-5">
+        <ul>
+          <li><strong>Formal Guarantees:</strong> AlphaVerus doesn't just guess correct code—it proves it, ensuring mathematically guaranteed correctness.</li>
+          <li><strong>No Pre-Existing Training Data Required:</strong> Instead of relying on large curated sets of verified code, AlphaVerus bootstraps from a handful of examples.</li>
+        </ul>
+      </div>
+      <div class="column is-half is-size-5">
+        <ul>
+          <li><strong>Self-Improving Process:</strong> Each iteration refines performance by leveraging the verifier's feedback.</li>
+          <li><strong>Better than GPT-4:</strong> Outperforms GPT-4-based approaches on verified adaptations of HumanEval and MBPP, setting a new standard for verified code generation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results Section -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results at a Glance</h2>
+    <p class="is-size-5 has-text-centered">
+      AlphaVerus significantly improves verification success rates on tough benchmarks. With iterative refinement, it not only scales with compute but also breaks through challenges that stymie other models.
+    </p>
+    <br>
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <figure class="image">
+          <img src="./static/images/performance_humaneval.png" alt="Performance on HumanEval-Verus">
+        </figure>
+        <p class="has-text-centered is-size-6">Performance on HumanEval-Verus</p>
+      </div>
+      <div class="column is-half">
+        <figure class="image">
+          <img src="./static/images/performance_mbpp.png" alt="Performance on MBPP-Verus">
+        </figure>
+        <p class="has-text-centered is-size-6">Performance on MBPP-Verus</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Example Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Selected Examples</h2>
+    <p class="is-size-5 has-text-justified">
+      Below are a few illustrative examples of AlphaVerus outputs. Each example shows non-trivial implementations and their associated proofs that the code meets the given specifications. All without human intervention in the loop, just guided by verifier feedback and iterative refinement.
+    </p>
+    <br>
+    <div class="box">
+      <h3 class="title is-5">Example: Verified Prime-Checking Function</h3>
+      <pre class="is-size-6">
+// Input spec: "Ensure this function checks if n is prime"
+// AlphaVerus-generated Verus code + proof annotations...
+      </pre>
+    </div>
+
+    <div class="box">
+      <h3 class="title is-5">Example: Verified Array Deduplication</h3>
+      <pre class="is-size-6">
+// Input spec: "Remove duplicates from a sorted array and prove result is strictly increasing"
+// AlphaVerus-generated code with loop invariants...
+      </pre>
+    </div>
+  </div>
+</section>
+
+<!-- Limitations and Future Work -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Limitations & Future Directions</h2>
+    <p class="is-size-5 has-text-justified">
+      While AlphaVerus demonstrates remarkable progress, it relies on a particular source domain (Dafny) for bootstrapping. Future directions include exploring other source domains, improving handling of complex data structures, and investigating strategies for even more challenging verification settings. The ultimate goal is to integrate such methods seamlessly into real-world development, scaling to large codebases and intricate correctness properties.
+    </p>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@misc{aggarwal2024alphaverus,
+  title={AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement}, 
+  author={Pranjal Aggarwal and Bryan Parno and Sean Welleck},
+  year={2024},
+  eprint={your_arxiv_id},
+  archivePrefix={arXiv},
+  primaryClass={cs.SE}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://arxiv.org/abs/yourpaper">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/yourrepo/alphaverus">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8 has-text-centered">
+        <div class="content">
+          <p>
+            Built with <a href="https://bulma.io/">Bulma</a>. Adapted from prior LLM research templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
