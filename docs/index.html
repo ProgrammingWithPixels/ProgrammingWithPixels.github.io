@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement">
-  <meta name="keywords" content="formal verification, code generation, LLMs, self-improvement, AI, translation, tree search">
+  <meta name="description" 
+        content="Programming with Pixels: Towards Generalist Software Engineering Agents">
+  <meta name="keywords" content="AI agents, software engineering, IDE interaction, computer-use agents, multimodal programming">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AlphaVerus: Bootstrapping Formally Verified Code Generation</title>
+  <title>Programming with Pixels: Towards Generalist Software Engineering Agents</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Roboto:400,500&display=swap" rel="stylesheet">
 
   <!-- CSS Stylesheets -->
-  <!-- <link rel="stylesheet" href="plugins/line-highlight/prism-line-highlight.css" data-noprefix=""> -->
-  <!-- <link rel="stylesheet" href="plugins/diff-highlight/prism-diff-highlight.css" data-noprefix=""> -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
@@ -72,10 +70,10 @@
       margin-bottom: 2rem;
     }
     .tab-content {
-      display: none;
+      display: none !important;
     }
     .tab-content.is-active {
-      display: block;
+      display: block !important;
     }
     .example-box {
       border: 1px solid #ccc;
@@ -116,7 +114,29 @@
       opacity: 0.9;
       transition: opacity 0.2s ease;
     }
+    .button.is-info {
+      background-color: #3498db;
+    }
+    .highlight {
+      background-color: #ecf0f1;
+    }
+    .tabs li {
+      cursor: pointer;
+    }
+    .tabs li.is-active a {
+      border-bottom-color: #485fc7;
+      color: #485fc7;
+    }
+    .tab-content figure.image {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
+    .tab-content .content figure.image {
+      margin: 0 0 1rem 0;
+    }
   </style>
+
 
   <!-- JS Libraries -->
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -124,50 +144,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bulma-accordion@2.0.3/dist/js/bulma-accordion.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <link rel="stylesheet" href="./static/css/prism.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
-</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script></head>
 <body>
-
 
 <!-- Hero Section -->
 <section class="hero is-light">
   <div class="hero-body">
     <div class="container">
-      <h1 class="title is-1 has-text-centered">AlphaVerus</h1>
-      <h2 class="subtitle is-3 has-text-centered">Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement</h2>
+      <h1 class="title is-1 has-text-centered">Programming with Pixels</h1>
+      <h2 class="subtitle is-3 has-text-centered">Towards Generalist Software Engineering Agents</h2>
       <div class="has-text-centered">
-        <p class="is-size-5">
-          <a href="https://pranjal2041.github.io">Pranjal Aggarwal</a><sup>1</sup>,
-          <a href="#">Bryan Parno</a><sup>1</sup>,
-          <a href="https://sweller123.github.io/">Sean Welleck</a><sup>1</sup>
-        </p>
-        <p class="is-size-5"><sup>1</sup>Carnegie Mellon University</p>
-        <!-- <p class="is-size-5">
-          Contact: <a href="mailto:pranjala@cs.cmu.edu">pranjala@cs.cmu.edu</a>,
-          <a href="mailto:wellecks@cmu.edu">wellecks@cmu.edu</a>
-        </p> -->
+        <p class="is-size-5">Pranjal Aggarwal, Sean Welleck</p>
+        <p class="is-size-5">Carnegie Mellon University</p>
         <br>
-        <!-- Updated Action Buttons with new design -->
         <p class="buttons is-centered">
-          <a href="https://arxiv.org/abs/2412.06176" class="button is-dark is-rounded">
-            <span class="icon">
-              <i class="ai ai-arxiv"></i>
-            </span>
+          <a href="#" class="button is-dark is-rounded">
+            <span class="icon"><i class="ai ai-arxiv"></i></span>
             <span>Paper</span>
           </a>
-          <a href="https://github.com/cmu-l3/alphaverus" class="button is-dark is-rounded">
-            <span class="icon"><i class="fab fa-github"></i></span>
-            <span>Code</span>
-          </a>
-          <a href="#performance-highlights" class="button is-dark is-rounded">
-            <span class="icon"><i class="fas fa-chart-bar"></i></span>
-            <span>Results</span>
-          </a>
           <a href="#example1" class="button is-dark is-rounded">
-            <span class="icon"><i class="fas fa-code"></i></span>
-            <span>AlphaVerus in Action</span>
+            <span class="icon"><i class="fas fa-file-csv"></i></span>
+            <span>Dataset</span>
           </a>
-          <a href="mailto:pranjala@cs.cmu.edu" class="button is-dark is-rounded">
+          <a href="#results" class="button is-dark is-rounded">
+            <span class="icon"><i class="fas fa-chart-bar"></i></span>
+            <span>Leaderboard</span>
+          </a>
+          <a href="#pwp-in-action" class="button is-dark is-rounded">
+            <span class="icon"><i class="fas fa-laptop-code"></i></span>
+            <span>Demo</span>
+          </a>
+          <a href="#contact" class="button is-dark is-rounded">
             <span class="icon"><i class="fas fa-envelope"></i></span>
             <span>Contact</span>
           </a>
@@ -177,19 +184,44 @@
   </div>
 </section>
 
+<!-- TL;DR Section -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="subtitle has-text-centered"><span style="font-weight:bold;">TLDR:</span> <strong>AlphaVerus</strong> leverages <strong>self-improvement</strong> and formal verification to generate <strong>provably correct code</strong>. It translates from known verified sources, refines code via <strong>tree search</strong>, and prevents <strong>reward hacking</strong> with a <strong>critique step</strong>, achieving robust <strong>verified code generation</strong> in real-world languages like Rust (Verus).</h2>
+    <h2 class="subtitle has-text-centered"><span style="font-weight:bold;">Goal of PwP</span></h2>
+    <div class="content">
+      <ul>
+        The ultimate goal of PwP is to enable generalist software engineering agents, that can solve a range of software engineering tasks, without hand-engineered priors in the form of action, observation and tool space. Agents should be capable of operating in environments similar to that of a human software engineer.
+      </ul>
+      <p>
+        To achieve this goal, we start by proposing: <br> 1. an environment <strong>PwP</strong> 🖥️, <br> 2. a benchmark <strong>PwP-Bench</strong> 📊, and <br> 3. <strong>preliminary results</strong> 🚀 showcasing potential of generalist SWE agents!
+      </p>
+    </div>
+    
   </div>
 </section>
+
+
+<!-- TL;DR Section -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="subtitle has-text-centered"><span style="font-weight:bold;">TLDR</span></h2>
+    <div class="content">
+      <ul>
+        <li><strong>Programming with Pixels (PwP)</strong> introduces a <strong>computer-use agent paradigm</strong> for software engineering where agents interact directly with IDEs through visual perception and basic actions.</li>
+        <li>Our <strong>PwP-Bench</strong> unifies 15 SWE tasks across 8 languages, multiple modalities and domains.</li>
+        <li>Our evaluations on PwP-Bench shows, a single Computer-Use agent design can match or even surpass state-of-the-art performance across a board of tasks, paving the way for generalist SWE agents.</li>
+      </ul>
+    </div>
+  </div>
+</section> -->
 
 <!-- Introduction Section -->
 <section class="section">
   <div class="container">
     <div class="content">
-      <h2 class="title is-3">Why Formally Verified Code Generation?</h2>
+      <h2 class="title is-3">The Limits of Tool-Based Agents</h2>
       <p class="is-size-5">
-        While LLMs have shown great promise in generating code, ensuring the correctness of generated code remains a significant challenge. Bugs and vulnerabilities can have serious consequences. Formal verification offers mathematical guarantees of correctness but is hindered by <strong>data scarcity</strong> and <strong>proof complexity</strong>.
+        Current AI agents for software engineering rely on hand-engineered tool APIs, limiting their generalization across tasks and languages. These approaches require extensive human engineering for each new capability and struggle with multimodal programming tasks.
       </p>
     </div>
   </div>
@@ -198,37 +230,36 @@
 <!-- Solution Section -->
 <section class="section has-background-light">
   <div class="container">
-    <h2 class="title is-3 has-text-centered">Introducing AlphaVerus</h2>
-    <!-- Image/Diagram -->
+    <h2 class="title is-3 has-text-centered">The PwP Paradigm</h2>
     <figure class="image">
-      <img src="static/images/alphaverus_diagram.png" alt="AlphaVerus Framework Diagram" class="diagram">
+      <img src="static/images/pwp_teaser_v4.png" alt="PwP Framework Diagram" class="diagram">
     </figure>
     <div class="content">
       <p class="is-size-5">
-        <br>
-        AlphaVerus is a self-improving framework that bootstraps formally verified code generation by translating programs from a higher-resource language and leveraging feedback from a verifier. It operates in three phases:
+        PwP enables agents to interact with IDEs through visual perception and basic actions:
       </p>
       <ul class="is-size-5">
-        <li><strong>Exploration:</strong> Translates programs from a source language.</li>
-        <li><strong>Treefinement:</strong> Refines translations using a novel tree search algorithm.</li>
-        <li><strong>Critique:</strong> Filters misaligned specifications to prevent reward hacking.</li>
+        <li><strong>Visual Interaction:</strong> Observe IDE state through screenshots</li>
+        <li><strong>Primitive Actions:</strong> Typing, clicking, navigation</li>
+        <li><strong>Tool Agnostic:</strong> Leverage existing IDE capabilities naturally</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="section" id="highlights"></section>
+<!-- Key Highlights -->
+<section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
-        <h2 class="title is-3">Key Highlights</h2>
+        <h2 class="title is-3">Key Advantages</h2>
         <div class="content has-text-justified is-size-5">
           <ul>
-            <li>🔑 <strong>Formal Guarantees:</strong> AlphaVerus integrates formal verification into code generation, ensuring mathematically guaranteed correctness.</li>
-            <li>🚀 <strong>Self-Improvement:</strong> Iterative translation and refinement build a data collection loop that continuously improves generation quality without human intervention.</li>
-            <li>🌳 <strong>Treefinement Algorithm:</strong> A novel tree-search-based refinement process fixes verification errors efficiently, surpassing linear refinement methods.</li>
-            <li>🛡 <strong>Preventing Reward Hacking:</strong> A critique step filters out trivial or misaligned specs, maintaining the integrity of the training cycle, which is crucial for the self-improvement loop.  </li>
-            <li>📊 <strong>Strong Results:</strong> Achieves state-of-the-art verified code generation performance on HumanEval-Verus and MBPP-Verus benchmarks.</li>
+            <li><strong></strong>IDE-Centric Design:</strong> Full access to VSCode tools through visual interaction</li>
+            <li><strong>PwP-Bench:</strong> Unified benchmark spanning 15 tasks across 8 languages</li>
+            <li><strong>Generalist Agents:</strong> Single agent architecture across all tasks</li>
+            <li><strong>Critical Insights:</strong> Current models struggle with visual grounding and tool discovery</li>
+            <li>🚀 <strong>Performance Potential:</strong> 47.2% success rate with best model (Claude 3.5)</li>
           </ul>
         </div>
       </div>
@@ -236,289 +267,107 @@
   </div>
 </section>
 
-<!-- Key Contributions Section -->
-<section class="section" id="key-contributions">
+<!-- Contributions Section -->
+<section class="section" id="contributions">
   <div class="container">
-    <h2 class="title is-3 has-text-centered">Interesting Contributions</h2>
+    <h2 class="title is-3 has-text-centered">Core Contributions</h2>
     <div class="tabs is-centered is-boxed">
       <ul>
-        <li class="is-active" data-tab="tab1"><a>Self-Improving Framework</a></li>
-        <li data-tab="tab2"><a>Treefinement Algorithm</a></li>
-        <li data-tab="tab3"><a>Preventing Reward Hacking</a></li>
+        <li class="is-active" data-tab="contrib-tab1"><a>PwP Environment</a></li>
+        <li data-tab="contrib-tab2"><a>PwP-Bench</a></li>
+        <li data-tab="contrib-tab3"><a>Agent Analysis</a></li>
       </ul>
     </div>
-    <div class="tab-content is-active" id="tab1">
-      <div class="columns">
-        <div class="column is-8 is-offset-2">
-          <div class="content">
-            <h3 class="title is-4 has-text-centered">Self-Improving Framework</h3>
-            <p class="is-size-5">
-              AlphaVerus iteratively improves code generation by learning from translations and verifier feedback, without human intervention or model fine-tuning. This self-improvement allows it to handle increasingly complex verifiable code generation tasks.
-            </p>
-            <!-- Example or Visual -->
-            <figure class="image">
-              <img src="static/images/alphaverus_diagram.png" alt="Self-Improvement Process">
-            </figure>
-          </div>
-        </div>
+    
+    <div id="contrib-tab1" class="tab-content is-active">
+      <div class="content">
+        <h3 class="title is-4">PwP Environment</h3>
+        <p class="is-size-5">
+          Our environment enables agents to interact with IDEs through visual perception and basic actions,
+          providing a more natural and generalizable approach to software engineering tasks.
+        </p>
       </div>
     </div>
-    <div class="tab-content" id="tab2">
-      <div class="columns">
-        <div class="column is-8 is-offset-2">
-          <div class="content">
-            <h3 class="title is-4 has-text-centered">Treefinement Algorithm</h3>
-            <p class="is-size-5">
-              The novel Treefinement algorithm performs a tree search over program refinements using verifier feedback. It outperforms traditional linear refinement methods by prioritizing promising paths and efficiently finding verified programs.
-            </p>
-            <!-- Example or Visual -->
-            <figure class="image">
-              <img src="static/images/treefinement.svg" alt="Treefinement Algorithm">
-            </figure>
-          </div>
-        </div>
+    
+    <div id="contrib-tab2" class="tab-content">
+      <div class="content">
+        <h3 class="title is-4">PwP-Bench</h3>
+        <p class="is-size-5">
+          A comprehensive benchmark featuring 15 diverse software engineering tasks across 8 programming languages,
+          designed to evaluate agent capabilities in real-world scenarios.
+        </p>
       </div>
     </div>
-    <div class="tab-content" id="tab3">
-      <div class="columns">
-        <div class="column is-8 is-offset-2">
-          <div class="content">
-            <h3 class="title is-4 has-text-centered">Preventing Reward Hacking</h3>
-            <p class="is-size-5">
-              AlphaVerus employs critique models to filter out misaligned specifications and trivial solutions that pass verification but don't fulfill the intended functionality, ensuring the correctness and reliability of generated code.
-            </p>
-            <!-- Example or Visual -->
-            <figure class="image">
-              <img src="static/images/critique.svg" alt="Preventing Reward Hacking">
-            </figure>
-          </div>
-        </div>
+    
+    <div id="contrib-tab3" class="tab-content">
+      <div class="content">
+        <h3 class="title is-4">Agent Analysis</h3>
+        <p class="is-size-5">
+          Detailed evaluation of agent performance, revealing key insights about visual grounding,
+          tool discovery, and the potential for generalist software engineering agents.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Interactive Example Section -->
-<section class="section has-background-light">
+<!-- Interactive Demo Section -->
+<section class="section has-background-light" id="pwp-in-action">
   <div class="container">
-    <h2 class="title is-3 has-text-centered">AlphaVerus in Action</h2>
-    <p class="is-size-5 has-text-centered">Explore examples generated by AlphaVerus demonstrating specifications, code, and proofs.</p>
+    <h2 class="title is-3 has-text-centered">PwP in Action</h2>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="box">
-          <!-- Tabs for Examples -->
           <div class="tabs">
             <ul>
-              <li class="is-active" data-tab="example1"><a>Example 1</a></li>
-              <li data-tab="example2"><a>Example 2</a></li>
-              <li data-tab="example3"><a>Example 3</a></li>
+              <li class="is-active" data-tab="demo-tab1"><a>Code Editing</a></li>
+              <li data-tab="demo-tab2"><a>UI Development</a></li>
+              <li data-tab="demo-tab3"><a>IDE Configuration</a></li>
+              <li data-tab="demo-tab4"><a>Code Refactoring</a></li>
             </ul>
           </div>
-          <!-- Example Content -->
-          <div class="tab-content is-active" id="example1">
-            <div class="example-box">
-              <p class="example-title">Multi-Function Verification: Prime Number Functions</p>
-              <p class="is-size-6 mb-2">Demonstrates verification of multiple related functions with helper functions</p>
-              
-              <p class="example-title">Stage 1: Prime Number Checker Specification</p>
-              <pre><code class="language-rust">spec fn spec_prime_helper(num: int, limit: int) -> bool {
-    forall|j: int| 2 <= j < limit ==> (#[trigger] (num % j)) != 0
-}
-
-spec fn spec_prime(num: int) -> bool {
-    spec_prime_helper(num, num)
-}
-
-fn is_prime(num: u32) -> (result: bool)
-    requires
-        num >= 2,
-    ensures
-        result <==> spec_prime(num as int),</code></pre>
-            </div>
-            <div class="example-box">
-              <p class="example-title">Stage 1: Code + Proof</p>
-              <pre><code class="language-rust">let mut i = 2;
-let mut result = true;
-while i < num
-    invariant
-        2 <= i <= num,
-        result <==> spec_prime_helper(num as int, i as int),
-{
-    if num % i == 0 {
-        result = false;
-    }
-    i += 1;
-}
-result</code></pre>
-            </div>
-            
-            <div class="example-box">
-              <p class="example-title">Stage 2: Largest Prime Factor Specification</p>
-              <pre><code class="language-rust">fn largest_prime_factor(n: u32) -> (largest: u32)
-    requires
-        n >= 2,
-    ensures
-        1 <= largest <= n,
-        spec_prime(largest as int),
-        n % largest == 0,
-        forall|p| 0 <= p < n && spec_prime(p) && n as int % p == 0 ==> p <= largest</code></pre>
-            </div>
-            <div class="example-box">
-              <p class="example-title">Stage 2: Code + Proof</p>
-              <pre><code class="language-rust">let mut largest = 1;
-let mut i = 2;
-while i < n
-    invariant
-        2 <= i <= n,
-        1 <= largest <= i,
-        spec_prime(largest as int),
-        i <= largest ==> spec_prime(i as int),
-        largest <= n,
-        n % largest == 0,
-        forall|p| 0 <= p < i && spec_prime(p) && n as int % p == 0 ==> p <= largest,
-{
-    if is_prime(i) && n % i == 0 {
-        largest = i;
-    }
-    i += 1;
-}
-assert(1 <= largest && largest <= n);
-assert(spec_prime(largest as int));
-assert(n % largest == 0);
-assert(forall|p| 0 <= p < n && spec_prime(p) && n as int % p == 0 ==> p <= largest);
-largest</code></pre>
+          
+          <div id="demo-tab1" class="tab-content is-active">
+            <div class="content">
+              <figure class="image">
+                <img src="static/videos/animation_editing.gif" alt="Code Editing Demo" style="border-radius: 1px; margin-bottom: 1rem;">
+              </figure>
+              <p class="is-size-5">
+                The agent identifies and fixes a bug in a Python function by analyzing the code context, 
+                locating the error, and implementing the correction through natural IDE interactions.
+              </p>
             </div>
           </div>
-          <!-- Additional Examples -->
-          <div class="tab-content" id="example2">
-            <div class="example-box">
-              <p class="example-title">Advanced Proof: String Manipulation Lemma</p>
-              <p class="is-size-6 mb-2">Shows complex string reasoning with detailed verification steps</p>
-              <p class="example-title">Specification</p>
-              <pre><code class="language-rust">proof fn lemma_step_subrange(substring: Seq<char>, string: Seq<char>)
-    requires
-        substring.len() > 0,
-        string.len() >= substring.len(),
-    ensures
-        (substring[0] == string.subrange(0, substring.len() as int)[0] && (substring.skip(1)
-            =~= string.skip(1).subrange(0, substring.skip(1).len() as int))) ==> (substring
-            =~= string.subrange(0, substring.len() as int)),
-    decreases substring.len(),</code></pre>
-            </div>
-            <div class="example-box">
-              <p class="example-title">Code + Proof (Generated by AlphaVerus)</p>
-              <pre><code class="language-rust">let m = substring.len();
-let n = string.len();
-assert(m > 0);
-assert(m <= n);
-let h = string.subrange(0, m as int);
-assert(h.len() == m);
-assert(substring.len() == h.len());
-if substring[0] == h[0] {
-    let k = substring.skip(1).len();
-    assert(k == h.skip(1).len());
-    let g = string.skip(1).subrange(0, k as int);
-    assert(g.len() == k);
-    assert(k == substring.len() - 1);
-    assert(k == h.len() - 1);
-    if m > 1 {
-        if substring.skip(1) =~= g {
-            assert(substring[0] == h[0]);
-            assert(substring.len() == g.len() + 1);
-            assert(substring.len() == h.len());
-            assert(forall|i: nat| 0 <= i && i < m ==> substring[i as int] == h[i as int]) by {
-                assert(substring[0] == h[0]);
-                assert(substring.skip(1) =~= g);
-                assert(forall|i: nat| 1 <= i && i < m ==> substring[i as int] == g[i as int - 1]);
-                assert(substring =~= h);
-            }
-            assert(substring =~= h);
-        } else {
-            assert(!(substring =~= h));
-        }
-    } else {
-        assert(substring =~= h);
-    }
-} else {
-    assert(!(substring =~= h));
-}</code></pre>
+          
+          <div id="demo-tab2" class="tab-content">
+            <div class="content">
+              <figure class="image">
+                <img src="static/videos/animation_html.gif" alt="UI Development Demo" style="border-radius: 1px; margin-bottom: 1rem;">
+              </figure>
+              <p class="is-size-5">
+                Watch as the agent builds a responsive React component, demonstrating its ability to 
+                handle both JSX markup and styling while leveraging VSCode's built-in previews.
+              </p>
             </div>
           </div>
-          <div class="tab-content" id="example3">
-            <div class="example-box">
-              <p class="example-title">Translation Example: Dafny to Verus</p>
-              <p class="is-size-6 mb-2">All Code is AlphaVerus-Generated</p>
-              <p class="example-title">Translation of Recursive Implementation</p>
-              <pre><code class="language-rust">use vstd::prelude::*;
 
-verus! {
-fn search_recursive(a: &Vec<i32>, i: usize, j: usize, x: i32) -> (k: i32)
-    requires
-        0 <= i && i <= j && j <= a.len(),
-        j - i < 100000,
-        j <= i32::MAX as usize,
-    ensures
-        i <= k && k < j || k == -1,
-        k != -1 ==> a[k as int] == x,
-        k != -1 ==> forall|r: nat| k < r && r < j ==> a[r as int] != x,
-        k == -1 ==> forall|r: nat| i <= r && r < j ==> a[r as int] != x,
-    decreases
-        j - i,
-{
-    if j == i {
-        -1
-    } else if a[j - 1] == x {
-        assert(j - 1 <= i32::MAX as usize);
-        if j - 1 <= i32::MAX as usize {
-            (j - 1) as i32
-        } else {
-            -1
-        }
-    } else {
-        search_recursive(a, i, j - 1, x)
-    }
-}</code></pre>
+          <div id="demo-tab3" class="tab-content">
+            <div class="content">
+              <figure class="image">
+                <img src="static/videos/animation_ide.gif" alt="IDE Configuration Demo" style="border-radius: 1px; margin-bottom: 1rem;">
+              </figure>
+              <p class="is-size-5">
+                The agent configures development environment settings, installing necessary extensions 
+                and adjusting workspace preferences through visual interaction with VSCode.
+              </p>
             </div>
-            <div class="example-box">
-              <p class="example-title">Translation of Iterative Implementation</p>
-              <pre><code class="language-rust">fn search_loop(a: &Vec<i32>, i: usize, j: usize, x: i32) -> (k: i32)
-    requires
-        0 <= i && i <= j && j <= a.len(),
-        j - i < 100000,
-        j <= i32::MAX as usize,
-    ensures
-        i <= k && k < j || k == -1,
-        k != -1 ==> a[k as int] == x,
-        k != -1 ==> forall|r: nat| k < r && r < j ==> a[r as int] != x,
-        k == -1 ==> forall|r: nat| i <= r && r < j ==> a[r as int] != x,
-{
-    if i == j {
-        return -1;
-    }
-    let mut t: usize = j;
-    while t > i
-        invariant
-            0 <= i <= t && t <= j,
-            t <= a.len(),
-            forall|p: nat| t <= p && p < j ==> a[p as int] != x,
-            t <= i32::MAX as usize,
-        decreases
-            t,
-    {
-        assert(t <= a.len());
-        if a[t - 1] == x {
-            if t - 1 <= i32::MAX as usize {
-                return (t - 1) as i32;
-            } else {
-                return -1;
-            }
-        } else {
-            assert(t > i);
-            t = t - 1;
-        }
-    }
-    -1
-}</code></pre>
+          </div>
+
+          <div id="demo-tab4" class="tab-content">
+            <div class="content">
+              <figure class="image">
+                <img src="static/videos/animation_refactor.gif" alt="Code Refactoring Demo" style="border-radius: 1px; margin-bottom: 1rem;">
+              </figure>
             </div>
           </div>
         </div>
@@ -528,175 +377,132 @@ fn search_recursive(a: &Vec<i32>, i: usize, j: usize, x: i32) -> (k: i32)
 </section>
 
 <!-- Results Section -->
-<section class="section" id="performance-highlights">
+<section class="section" id="results">
   <div class="container">
-    <h2 class="title is-3 has-text-centered">Performance Highlights</h2>
+    <h2 class="title is-3 has-text-centered">Leaderboard</h2>
+    
+    <!-- Tabs -->
     <div class="tabs is-centered is-boxed">
       <ul>
-        <li class="is-active" data-tab="perf1"><a>State-of-the-Art Results</a></li>
-        <li data-tab="perf2"><a>Scaling Inference Compute</a></li>
-        <li data-tab="perf3"><a>No Finetuning Model Transfer</a></li>
+        <li class="is-active" data-tab="lite-tab"><a>PwP-Bench Lite</a></li>
+        <!-- <li data-tab="verified-tab"><a>Verified</a></li> -->
+        <!-- <li data-tab="full-tab"><a>Full</a></li> -->
+        <!-- <li data-tab="multimodal-tab"><a>Multimodal</a></li> -->
       </ul>
     </div>
-    <div class="tab-content is-active" id="perf1">
-      <div class="columns">
-        <div class="column is-8 is-offset-2">
-          <div class="content">
-            <h3 class="title is-4 has-text-centered">State-of-the-Art Results</h3>
-            <p class="is-size-5">
-              AlphaVerus achieves significant improvements in generating formally verified code, outperforming existing methods including GPT-4. Our framework reaches 38% success rate on HumanEval-Verified, setting a new benchmark for verified code generation.
-            </p>
-            <figure class="image">
-              <img src="static/images/results_1_2.png" alt="Performance Chart">
-            </figure>
-          </div>
-        </div>
+
+    <!-- Lite Tab Content -->
+    <div id="lite-tab" class="tab-content is-active">
+      <div class="table-container">
+        <table class="table is-fullwidth is-striped">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>% Resolved</th>
+              <th>Date</th>
+              <th>Site</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🏆 Computer-Use Agent Claude-3.5 Sonnet - 20241022</td>
+              <td>47.2</td>
+              <td>2025-02-24</td>
+              <td><a href="#"><i class="fas fa-link"></i></a></td>
+            </tr>
+            <tr>
+              <td>🥈 Computer-Use Agent GPT-4o</td>
+              <td>34.0</td>
+              <td>2025-02-24</td>
+              <td><a href="#"><i class="fas fa-link"></i></a></td>
+            </tr>
+            <tr>
+              <td>🥉 Computer-Use Agent Gemini-1.5 Pro</td>
+              <td>20.3</td>
+              <td>2025-02-24</td>
+              <td><a href="#"><i class="fas fa-link"></i></a></td>
+            </tr>
+            <tr>
+              <td>Computer-Use Agent GPT-4o-mini</td>
+              <td>19.9</td>
+              <td>2025-02-24</td>
+              <td><a href="#"><i class="fas fa-link"></i></a></td>
+            </tr>
+            <tr>
+              <td>Computer-Use Agent Gemini-1.5 Flash</td>
+              <td>11.1</td>
+              <td>2025-02-24</td>
+              <td><a href="#"><i class="fas fa-link"></i></a></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="tab-content" id="perf2">
-      <div class="columns">
-        <div class="column is-8 is-offset-2">
-          <div class="content">
-            <h3 class="title is-4 has-text-centered">Scaling Inference Compute</h3>
-            <p class="is-size-5">
-              AlphaVerus's Exploration Stage and Treefinement algorithm efficiently scales with additional compute, showing consistent improvements in verification success rates. This demonstrates the framework's ability to leverage computational resources effectively for better results.
-            </p>
-            <!-- Add relevant figure here -->
-            <figure class="image">
-              <img src="static/images/tree_search_vs_exploration.png" alt="Scaling Inference Compute">
-            </figure>
-          </div>
-        </div>
-      </div>
+
+    <!-- Other Tab Contents (Empty for now) -->
+    <div id="verified-tab" class="tab-content">
+      <!-- Content for Verified tab -->
     </div>
-    <div class="tab-content" id="perf3">
-      <div class="columns">
-        <div class="column is-8 is-offset-2">
-          <div class="content">
-            <h3 class="title is-4 has-text-centered">No-Finetuning Model Transfer</h3>
-            <p class="is-size-5">
-              AlphaVerus's collected exemplars can improve any new model's performance without fine-tuning, demonstrating strong transfer capabilities. This makes our framework a valuable tool for improving verified code generation across different models.
-            </p>
-            <!-- Add relevant figure here -->
-            <figure class="image">
-              <img src="static/images/model_transfer.png" alt="No Finetuning Model Transfer">
-            </figure>
-          </div>
-        </div>
-      </div>
+    <div id="full-tab" class="tab-content">
+      <!-- Content for Full tab -->
+    </div>
+    <div id="multimodal-tab" class="tab-content">
+      <!-- Content for Multimodal tab -->
     </div>
   </div>
 </section>
 
-<section class="section" id="Cite AlphaVerus">
+<!-- BibTeX Section -->
+<section class="section">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3">BibTeX</h2>
-    <pre><code>@misc{aggarwal2024alphaverusbootstrappingformallyverified,
-      title={AlphaVerus: Bootstrapping Formally Verified Code Generation through Self-Improving Translation and Treefinement}, 
-      author={Pranjal Aggarwal and Bryan Parno and Sean Welleck},
-      year={2024},
-      eprint={2412.06176},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2412.06176}, 
+    <h2 class="title is-3">Citation</h2>
+    <pre><code>@article{pwp2024,
+  title={Programming with Pixels: Towards Generalist Software Engineering Agents},
+  author={Anonymous},
+  journal={Under Review},
+  year={2024}
 }</code></pre>
   </div>
 </section>
-<!-- Get Started Section -->
-<!-- <section class="section has-background-light" id="get-started">
-  <div class="container">
-    <h2 class="title is-3 has-text-centered">Get Started with AlphaVerus</h2>
-    <div class="content">
-      <p class="is-size-5 has-text-centered">Using AlphaVerus in your projects is straightforward:</p>
-      <div class="box">
-        <p><strong>1. Install the package:</strong></p>
-        <pre><code class="language-shell">$ pip install alphaverus</code></pre>
-      </div>
-      <div class="box">
-        <p><strong>2. Import and initialize:</strong></p>
-        <pre><code class="language-python">from alphaverus import AlphaVerus
 
-model = AlphaVerus()</code></pre>
-      </div>
-      <div class="box">
-        <p><strong>3. Generate verified code:</strong></p>
-        <pre><code class="language-python">specification = "..."
-verified_code = model.generate(specification)
-print(verified_code)</code></pre>
-      </div>
-      <p class="is-size-5 has-text-centered">
-        For more details, check out our <a href="https://github.com/AlphaVerus/AlphaVerus">GitHub repository</a>.
-      </p>
-    </div>
-  </div>
-</section> -->
-
-<!-- Footer -->
 <footer class="footer">
   <div class="content has-text-centered">
     <p>
-      <strong>AlphaVerus</strong> by <a href="https://pranjal2041.github.io">Pranjal Aggarwal</a>, <a href="https://www.andrew.cmu.edu/user/bparno/">Bryan Parno</a>, and <a href="https://wellecks.com//">Sean Welleck</a>.
+      <strong>Programming with Pixels</strong> - Anonymous Submission
     </p>
     <p>
-      <a href="https://arxiv.org/abs/2412.06176" class="icon">
-        <i class="fas fa-file-alt"></i>
-      </a>
-      &nbsp;
-      <a href="https://github.com/cmu-l3/alphaverus" class="icon">
-        <i class="fab fa-github"></i>
-      </a>
-    </p>
-    <br>
-    <br>
-    <p>
-      Template adapted from <a href="http://nerfies.github.io/">Nerfies</a> by Keunhong Park et
-      al.
-      and uses <a href="https://bulma.io/">Bulma</a>.
+      Template adapted from previous work and <a href="https://bulma.io/">Bulma</a>
     </p>
   </div>
 </footer>
 
-<!-- JavaScript for Tabs -->
+<!-- Update the JavaScript at the bottom of the file -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Get all tab sections
-    const tabSections = document.querySelectorAll('.tabs');
+document.addEventListener('DOMContentLoaded', () => {
+  function switchTabs(clickedTab) {
+    const tabContainer = clickedTab.closest('.tabs');
+    const section = tabContainer.closest('section') || tabContainer.parentElement;
+    const tabId = clickedTab.getAttribute('data-tab');
     
-    tabSections.forEach(tabSection => {
-      // For each tab section, set first tab as active
-      const firstTab = tabSection.querySelector('ul li');
-      const allTabs = tabSection.querySelectorAll('ul li');
-      const targetId = firstTab.dataset.tab;
-      const tabContents = tabSection.closest('.container').querySelectorAll('.tab-content');
-      
-      // Set first tab as active
-      firstTab.classList.add('is-active');
-      
-      // Set corresponding content as active
-      tabContents.forEach(content => {
-        if (content.id === targetId) {
-          content.classList.add('is-active');
-        } else {
-          content.classList.remove('is-active');
-        }
-      });
+    // Update tabs
+    const allTabs = tabContainer.querySelectorAll('li');
+    allTabs.forEach(tab => tab.classList.remove('is-active'));
+    clickedTab.classList.add('is-active');
+    
+    // Update content
+    const allContent = section.querySelectorAll('.tab-content');
+    allContent.forEach(content => content.classList.remove('is-active'));
+    const activeContent = section.querySelector(`#${tabId}`);
+    if (activeContent) {
+      activeContent.classList.add('is-active');
+    }
+  }
 
-      // Add click handlers for all tabs
-      allTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const target = tab.dataset.tab;
-
-          allTabs.forEach(t => t.classList.remove('is-active'));
-          tab.classList.add('is-active');
-
-          tabContents.forEach(content => {
-            content.classList.toggle('is-active', content.id === target);
-          });
-        });
-      });
-    });
+  // Add click handlers
+  document.querySelectorAll('.tabs li').forEach(tab => {
+    tab.addEventListener('click', () => switchTabs(tab));
   });
+});
 </script>
-
 </body>
 </html>
