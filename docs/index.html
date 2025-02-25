@@ -341,7 +341,7 @@
         <p class="is-size-5">Carnegie Mellon University</p>
         <br>
         <p class="buttons is-centered">
-          <a href="#" class="button is-dark is-rounded">
+          <a href="static/pdfs/PwP_Arxiv_Submission.pdf" class="button is-dark is-rounded">
             <span class="icon"><i class="ai ai-arxiv"></i></span>
             <span>Paper</span>
           </a>
@@ -912,32 +912,72 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.querySelector('#contrib-tab2').classList.contains('is-active')) {
     initBenchmarkChart();
   }
-  
+  // RES-Q is a codebase editing benchmark consisting of 100 hand-crafted, compact natural language edit instructions. The task is to, given an edit instruction and a codebase, make an edit to the codebase that satisfies the instruction.
+
+
   function initBenchmarkChart() {
-    // Dataset information
+    // Dataset information - full descriptions
     const datasetInfo = {
       // Code Generation & Editing
-      'HumanEval': 'Basic programming tasks for evaluating code generation capabilities across various algorithms and data structures.',
-      'SWE-Bench': 'GitHub pull request-style issue resolution in Python repositories, requiring understanding of complex codebases.',
-      'SWE-Bench-Java': 'Pull request resolution tasks for Java codebases, testing language-specific knowledge and framework understanding.',
-      'SWT-Bench': 'Testing-focused software engineering tasks that require writing unit tests and understanding test frameworks.',
-      'Canit-Edit': 'Targeted code editing to fix specific bugs without rewriting entire functions or classes.',
-      'Res-Q': 'Pull request response generation based on review comments, requiring communication skills.',
-      
+      'HumanEval': 'A dataset of Python programming problems for evaluating code generation models.',
+      'SWE-Bench': 'A dataset of 2000 real-world GitHub issues and pull requests from Python repositories to evaluate language models on software engineering tasks.',
+      'SWE-Bench-Java': 'A dataset for evaluating language models on resolving real-world GitHub issues in Java codebases.',
+      'SWT-Bench': 'A benchmark for evaluating large language models on testing generation for real world software issues collected from GitHub.',
+      'Canit-Edit': 'A benchmark for evaluating LLMs on instructional code editing, the task of updating a program given a natural language instruction.',
+      'Res-Q': 'A benchmark for codebase editing tasks, consisting of 100 hand-crafted, compact natural language edit instructions.',
+
       // Multimodal Code Generation
-      'Design2Code': 'Converting visual UI designs to HTML/CSS implementations, bridging visual and code modalities.',
-      'ChartMimic': 'Generating code to recreate data visualizations from images, requiring data science knowledge.',
-      'SWE-Bench-MM': 'Multimodal version of SWE-Bench with image inputs such as screenshots or diagrams.',
-      'DSBench': 'Data science and visualization code generation tasks based on dataset descriptions.',
+      'Design2Code': 'A dataset for converting visual UI designs to HTML/CSS implementations, bridging visual and code modalities.',
+      'ChartMimic': 'A dataset for generating code to recreate data visualizations from images, requiring data science knowledge.',
+      'SWE-Bench-MM': 'A multimodal version of SWE-Bench with image inputs such as screenshots or diagrams from JavaScript repositories.',
+      'DSBench': 'A benchmark for evaluating data science agents with realistic data analysis and data modeling tasks based on dataset descriptions.',
       
       // Domain-Specific
-      'CTF': 'Cybersecurity challenges requiring exploit development and understanding of security concepts.',
-      'MiniCTX': 'Theorem proving tasks in the Lean programming language, requiring formal methods knowledge.',
-      'BIRD': 'Database query generation from natural language and schema, testing SQL knowledge.',
+      'CTF': 'A dataset of cybersecurity challenges requiring exploit development and understanding of security concepts.',
+      'MiniCTX': 'A dataset for theorem proving tasks in the Lean programming language, requiring formal proving capabilities.',
+      'BIRD': 'A dataset for database query generation from natural language and schema, testing SQL knowledge.',
       
       // SWE Tasks
       'VSCode': 'IDE configuration and extension tasks focused on developer workflows.',
-      'General-SWE': 'Project management, debugging, and profiling tasks common in software development.'
+      'General-SWE': 'Profiling, Refactoring, Debugging, and other tasks common in software development.'
+    };
+    
+    // Dataset URLs
+    const datasetUrls = {
+      'HumanEval': 'https://huggingface.co/datasets/openai/openai_humaneval',
+      'SWE-Bench': 'https://huggingface.co/datasets/princeton-nlp/SWE-bench',
+      'SWE-Bench-Java': 'https://huggingface.co/datasets/Daoguang/Multi-SWE-bench',
+      'SWT-Bench': 'https://github.com/logic-star-ai/swt-bench',
+      'Canit-Edit': 'https://github.com/nuprl/CanItEdit',
+      'Res-Q': 'https://huggingface.co/datasets/Qurrent/RES-Q',
+      'Design2Code': 'https://huggingface.co/datasets/SALT-NLP/Design2Code',
+      'ChartMimic': 'https://huggingface.co/datasets/ChartMimic/ChartMimic',
+      'SWE-Bench-MM': 'https://huggingface.co/datasets/princeton-nlp/SWE-bench_Multimodal',
+      'DSBench': 'https://github.com/LiqiangJing/DSBench',
+      'CTF': 'https://intercode-benchmark.github.io/',
+      'MiniCTX': 'https://github.com/cmu-l3/minictx-eval',
+      'BIRD': 'https://bird-bench.github.io/',
+      'VSCode': '#',
+      'General-SWE': '#'
+    };
+    
+    // Simple descriptions for tooltips
+    const tooltipInfo = {
+      'HumanEval': 'Python Code Generation',
+      'SWE-Bench': 'Python Issue Resolution',
+      'SWE-Bench-Java': 'Java Issue Resolution',
+      'SWT-Bench': 'Test Generation',
+      'Canit-Edit': 'Targeted Code Editing',
+      'Res-Q': 'Codebase Editing',
+      'Design2Code': 'UI Generation',
+      'ChartMimic': 'Visualization Code',
+      'SWE-Bench-MM': 'Visual Issue Resolution',
+      'DSBench': 'Data Science Tasks',
+      'CTF': 'Cybersecurity',
+      'MiniCTX': 'Theorem Proving',
+      'BIRD': 'Text to SQL',
+      'VSCode': 'IDE Configuration',
+      'General-SWE': 'Development Tasks'
     };
     
     // Chart data structure with category information
@@ -998,7 +1038,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return context[0].label;
               },
               label: function(context) {
-                return datasetInfo[context.label];
+                return tooltipInfo[context.label];
               }
             }
           }
@@ -1011,7 +1051,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = elements[0].index;
             const datasetLabel = data.labels[index];
             document.getElementById('datasetTitle').textContent = datasetLabel;
-            document.getElementById('datasetDescription').textContent = datasetInfo[datasetLabel] || 'No description available';
+            document.getElementById('datasetDescription').innerHTML = `
+              <p>${datasetInfo[datasetLabel]}</p>
+              <p class="mt-3"><a href="${datasetUrls[datasetLabel]}" target="_blank" class="button is-small is-link">
+                <span class="icon"><i class="fas fa-external-link-alt"></i></span>
+                <span>Visit Dataset</span>
+              </a></p>
+            `;
           } else {
             document.body.style.cursor = 'default';
           }
